@@ -34,7 +34,8 @@ export function Works() {
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="mt-3 text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
-                Featured <span className="text-gradient-brand">Works</span>.
+                <span className="font-serif italic font-normal text-foreground/80">Featured</span>{" "}
+                <span className="text-gradient-brand">Works</span>.
               </h2>
             </Reveal>
             <Reveal delay={0.15}>

@@ -35,7 +35,8 @@ export function Design() {
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="mt-3 text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
-            Design <span className="text-gradient-brand">Portfolio</span>.
+            <span className="font-serif italic font-normal text-foreground/80">Design</span>{" "}
+            <span className="text-gradient-brand">Portfolio</span>.
           </h2>
         </Reveal>
         <Reveal delay={0.15}>

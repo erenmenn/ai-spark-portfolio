@@ -32,7 +32,7 @@ export function About() {
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="mt-3 text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
-            Passionate about
+            <span className="font-serif italic font-normal text-foreground/80">Passionate</span> about
             <br />
             <span className="text-gradient-brand">intelligence.</span>
           </h2>
