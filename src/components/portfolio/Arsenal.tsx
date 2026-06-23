@@ -23,7 +23,7 @@ export function Arsenal() {
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="mt-3 text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
-                ⚙ Technical
+                <span className="font-serif italic font-normal text-foreground/80">Technical</span>
                 <br />
                 <span className="text-gradient-brand">Arsenal.</span>
               </h2>

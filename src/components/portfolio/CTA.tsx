@@ -17,7 +17,8 @@ export function CTA() {
                 // let's build
               </div>
               <h2 className="mt-4 text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
-                We are <span className="text-gradient-brand">creators</span>,
+                <span className="font-serif italic font-normal text-foreground/80">We are</span>{" "}
+                <span className="text-gradient-brand">creators</span>,
                 <br />
                 innovators & storytellers.
               </h2>
