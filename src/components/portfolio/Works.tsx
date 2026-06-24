@@ -233,6 +233,7 @@ export function Works() {
             {filtered.map((project, i) => (
               <motion.article
                 key={project.title}
+                id={`project-card-${project.n}`}
                 layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

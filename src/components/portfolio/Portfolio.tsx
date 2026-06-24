@@ -8,20 +8,26 @@ import { Works } from "./Works";
 import { Design } from "./Design";
 import { CTA } from "./CTA";
 import { Footer } from "./Footer";
+import { ChatbotProvider } from "./ChatbotContext";
+import { Chatbot } from "./Chatbot";
 
 export function Portfolio() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Nav />
-      <Hero />
-      <Marquee />
-      <About />
-      <Arsenal />
-      <Journey />
-      <Works />
-      <Design />
-      <CTA />
-      <Footer />
-    </main>
+    <ChatbotProvider>
+      <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+        <Nav />
+        <Hero />
+        <Marquee />
+        <About />
+        <Arsenal />
+        <Journey />
+        <Works />
+        <Design />
+        <CTA />
+        <Footer />
+        {/* Global floating chatbot — always rendered on top */}
+        <Chatbot />
+      </main>
+    </ChatbotProvider>
   );
 }

@@ -1,4 +1,7 @@
 import { Reveal } from "./Reveal";
+import { useChatbot } from "./ChatbotContext";
+import { motion } from "motion/react";
+import { MessageCircle } from "lucide-react";
 
 const chat = [
   { from: "user", text: "Halo Emir! Ceritain dong, kamu tuh orangnya gimana sih dalam bekerja? 🤔" },
@@ -21,7 +24,37 @@ const chat = [
   },
 ];
 
+// Each skill maps to a prefill question for the chatbot
+const SKILLS_WITH_QUESTIONS: { label: string; question: string }[] = [
+  {
+    label: "Problem Solving",
+    question: "Gimana cara Emirsyah ngadepin masalah teknis yang kompleks? Ceritain contoh nyatanya dong.",
+  },
+  {
+    label: "Leadership",
+    question: "Ceritain pengalaman leadership Emirsyah yang paling berkesan — tim, konteks, dan hasilnya gimana?",
+  },
+  {
+    label: "Project Design",
+    question: "Emirsyah punya pengalaman merancang arsitektur project AI dari awal? Bisa ceritain prosesnya?",
+  },
+  {
+    label: "Analytical",
+    question: "Kemampuan analytical Emirsyah keliatan di project mana aja? Kasih contoh yang konkret dong.",
+  },
+  {
+    label: "Creative Thinking",
+    question: "Emirsyah pernah nemuin solusi 'out of the box' di project atau kompetisi? Ceritain dong!",
+  },
+  {
+    label: "Mentorship",
+    question: "Pengalaman Emirsyah jadi mentor atau ngajarin orang lain soal AI itu gimana? Di mana aja?",
+  },
+];
+
 export function About() {
+  const { openChat } = useChatbot();
+
   return (
     <section id="about" className="relative py-28 px-6">
       <div className="max-w-6xl mx-auto">
@@ -47,27 +80,58 @@ export function About() {
                 <span className="text-gradient-brand font-semibold">AI Evaluator</span> — sutradara yang
                 mengarahkan kecerdasan buatan untuk menciptakan dampak nyata.
               </p>
-              <div className="mt-8 grid grid-cols-2 gap-3">
-                {["Problem Solving", "Leadership", "Project Design", "Analytical", "Creative Thinking", "Mentorship"].map(
-                  (s) => (
-                    <div
-                      key={s}
-                      className="px-3 py-2 rounded-xl border border-border text-sm font-medium bg-white hover:border-[#0065F8] hover:text-[#0065F8] transition"
+
+              {/* Skill badges — clickable → open chatbot with prefill */}
+              <div className="mt-8">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-1.5">
+                  <MessageCircle className="w-3 h-3" />
+                  Klik untuk tanya langsung ke AI Emir
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {SKILLS_WITH_QUESTIONS.map(({ label, question }, i) => (
+                    <motion.button
+                      key={label}
+                      onClick={() => openChat(question)}
+                      whileHover={{ y: -2, scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.05 * i, duration: 0.35 }}
+                      className="group relative px-3 py-2.5 rounded-xl border text-sm font-medium text-left overflow-hidden transition-all duration-200 hover:border-[#0065F8] hover:text-[#0065F8] hover:shadow-sm"
+                      style={{ background: "white" }}
                     >
-                      {s}
-                    </div>
-                  ),
-                )}
+                      {/* Hover glow fill */}
+                      <span
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+                        style={{ background: "rgba(0,101,248,0.04)" }}
+                      />
+                      <span className="relative flex items-center justify-between gap-2">
+                        {label}
+                        <MessageCircle className="w-3 h-3 opacity-0 group-hover:opacity-60 transition-opacity shrink-0" />
+                      </span>
+                    </motion.button>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>
 
+          {/* Chat preview panel — clicking opens chatbot */}
           <Reveal delay={0.25}>
-            <div className="rounded-3xl border border-border bg-white p-6 shadow-card">
+            <div
+              className="rounded-3xl border border-border bg-white p-6 shadow-card cursor-pointer group transition-all hover:border-[#0065F8]/40 hover:shadow-[0_8px_32px_rgba(0,101,248,0.12)]"
+              onClick={() => openChat()}
+            >
               <div className="flex items-center gap-2 pb-4 border-b border-border">
-                <div className="size-2 rounded-full bg-[#00FFDE]" />
+                <div className="size-2 rounded-full bg-[#00FFDE] animate-pulse" />
                 <span className="text-sm font-medium">Chat with Emir</span>
                 <span className="ml-auto text-xs font-mono text-muted-foreground">online</span>
+                <span
+                  className="text-[10px] font-mono px-2 py-0.5 rounded-full text-white ml-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ background: "linear-gradient(135deg,#4300FF,#0065F8)" }}
+                >
+                  Open ↗
+                </span>
               </div>
               <div className="mt-4 space-y-3 max-h-[460px] overflow-hidden">
                 {chat.map((m, i) => (
@@ -87,8 +151,8 @@ export function About() {
                   </div>
                 ))}
               </div>
-              <div className="mt-4 flex items-center gap-2 px-3 py-2 rounded-full border border-border bg-secondary/50 text-sm text-muted-foreground">
-                💬 Kepo lagi yuk...
+              <div className="mt-4 flex items-center gap-2 px-3 py-2 rounded-full border border-border bg-secondary/50 text-sm text-muted-foreground group-hover:border-[#0065F8]/30 transition-colors">
+                💬 Klik untuk ngobrol langsung...
               </div>
             </div>
           </Reveal>
